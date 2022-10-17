@@ -1,7 +1,9 @@
-import useUserDetailsStore, { UserDetailsState } from '../../store/UserDetailsStore';
+import { UserDetailsActions, UserDetailsState, useUserDetailsStore } from '../../store';
 
 const Home = (): JSX.Element => {
-  const { token, setToken } = useUserDetailsStore((state: UserDetailsState) => state);
+  const { token, setToken } = useUserDetailsStore(
+    (state: UserDetailsState & UserDetailsActions) => state,
+  );
 
   return (
     <div>

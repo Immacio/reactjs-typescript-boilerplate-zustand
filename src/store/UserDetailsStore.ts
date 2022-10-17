@@ -1,17 +1,28 @@
 import create from 'zustand';
 
 export interface UserDetailsState {
-  token: string;
-  userId: string;
-  setToken: (token: string) => void;
-  setUserId: (userId: string) => void;
+  token: string | null;
+  userId: string | null;
 }
 
-const useUserDetailsStore = create<UserDetailsState>((set) => ({
-  token: '',
-  userId: '',
+export interface UserDetailsActions {
+  setToken: (token: string) => void;
+  setUserId: (userId: string) => void;
+  reset: () => void;
+}
+
+const initialState: UserDetailsState = {
+  token: null,
+  userId: null,
+};
+
+export const useUserDetailsStore = create<UserDetailsState & UserDetailsActions>((set) => ({
+  ...initialState,
   setToken: (newToken) => set(() => ({ token: newToken })),
   setUserId: (newUserId) => set(() => ({ userId: newUserId })),
+  reset: () => {
+    set(initialState);
+  },
 }));
 
 export default useUserDetailsStore;
